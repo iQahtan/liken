@@ -1,0 +1,30 @@
+/* 
+  Localiztion.strings
+  Liken
+
+  Created by Qahtan on 11/11/18.
+  Copyright © 2018 DiverApp. All rights reserved.
+*/
+"more" = "more";
+"stores" = "Stores";
+"specialOffers" = "Special Offers";
+"shoppingByItems" = "Shopping By Items";
+"tie" = "Tie";
+"juses" = "Juses";
+"feshWater" = "";
+"signup"= "Signup";
+"orVia" = "Or Via";
+"activitionCode" = "We sent the activition code to:";
+"signupTitle" = "Sign up with phone number";
+"editphoneNumber" = "(Edit)";
+"resendCode" = "code will resend after  ";
+"resend" = "Resend Code";
+"youHave" = "You have ";
+"itemsInYourCart" = "Items In Your Cart";
+"checkout" = "Checkout";
+"continueShopping" = "Continue Shopping";
+
+"myCart" = "My Cart";
+"home" = "Home";
+"stores" = "Stores";
+"ddd" = "ddd";
