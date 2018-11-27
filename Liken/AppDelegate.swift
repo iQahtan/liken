@@ -19,7 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         UITabBar.appearance().tintColor = UIColor.rgb(red: 99, green: 99, blue: 99)
+//        let storyBoard = UIStoryboard(name: "main", bundle: nil)
+//        window?.rootViewController = storyBoard.instantiateViewController(withIdentifier: "onboarding")
+        
+        
         window?.rootViewController = MainTabBarViewController()
+        
+        
+//        window?.rootViewController = OnboardingPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         window?.makeKeyAndVisible()
         return true
     }

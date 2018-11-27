@@ -46,16 +46,17 @@ class ItemsTableViewCell: UITableViewCell {
     }()
     let pluseButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setImage(#imageLiteral(resourceName: "Group 63").withRenderingMode(.alwaysOriginal), for: .normal)
+        btn.setImage(#imageLiteral(resourceName: "Group 3").withRenderingMode(.alwaysTemplate), for: .normal)
+        btn.tintColor = UIColor.rgb(red: 112, green: 112, blue: 112)
         btn.addTarget(self, action: #selector(handlePluseCounter), for: .touchUpInside)
         btn.tag = 0
-        btn.backgroundColor = .green
         return btn
     }()
     let minuesButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.backgroundColor = .gray
-        btn.setImage(#imageLiteral(resourceName: "Group 63").withRenderingMode(.alwaysOriginal), for: .normal)
+        
+        btn.setImage(#imageLiteral(resourceName: "054-minus").withRenderingMode(.alwaysTemplate), for: .normal)
+        btn.tintColor = UIColor.rgb(red: 112, green: 112, blue: 112)
         return btn
     }()
     let counterLabel: UILabel = {
@@ -63,7 +64,6 @@ class ItemsTableViewCell: UITableViewCell {
         lab.textAlignment = .center
         lab.font = UIFont(name: "Tajawal-Medium", size: 14)
         lab.text = "1"
-        lab.backgroundColor = .red
         lab.textColor = UIColor.rgb(red: 88, green: 88, blue: 88)
         return lab
     }()

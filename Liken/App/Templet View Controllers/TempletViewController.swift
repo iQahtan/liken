@@ -16,9 +16,16 @@ class TempletViewController: UIViewController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
+        view.backgroundColor = .white
+        view.dismissKeyboard()
+//        self.navigationController?.isNavigationBarHidden = false
     }
-    func setupNavigationBar() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBar(image: #imageLiteral(resourceName: "Group 5"))
+    }
+    func setupNavigationBar(image:UIImage) {
+        
         UIApplication.shared.statusBarStyle = .lightContent
         view.addSubview(statusBarView)
         let label = UILabel()
@@ -27,12 +34,11 @@ class TempletViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: UIFont(name: "Questv1-Bold", size: 19),NSAttributedStringKey.foregroundColor: UIColor.white]
 
         self.navigationController?.navigationBar.topItem?.title = ""
-        self.navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "Group 63").withRenderingMode(.alwaysOriginal)
+        self.navigationController?.navigationBar.backIndicatorImage = image.withRenderingMode(.alwaysOriginal)
         self.navigationItem.backBarButtonItem?.title = " "
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "Group 63").withRenderingMode(.alwaysOriginal)
+        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = image.withRenderingMode(.alwaysOriginal)
         
         statusBarView.anchor(top: view.topAnchor, left: view.leadingAnchor, right: view.trailingAnchor, bottom: nil, paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, width: 0, height: 20)
-        view.backgroundColor = .white
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.shadowImage = UIImage(named: "")

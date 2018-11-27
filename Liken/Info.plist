@@ -27,6 +27,7 @@
 		<string>Tajawal-ExtraBold.ttf</string>
 		<string>Tajawal-Medium.ttf</string>
 		<string>Tajawal-Regular.ttf</string>
+		<string>Tajawal-Light.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

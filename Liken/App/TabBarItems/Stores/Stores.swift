@@ -29,6 +29,10 @@ class Stores: TembletTabBarViewController {
         storesCollectionView.delegate = self
         storesCollectionView.dataSource = self
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+    }
 }
 extension Stores: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

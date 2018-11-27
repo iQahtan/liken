@@ -25,7 +25,7 @@ class HomeVC: UIViewController,UIScrollViewDelegate,UINavigationControllerDelega
     let storesLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Questv1 Bold", size: 16.0)
-        label.text = NSLocalizedString("stores",comment:"")
+        label.text = "الهايبرات"
         label.textColor = UIColor(named: "labelTextColor")
         return label
     }()
@@ -33,6 +33,8 @@ class HomeVC: UIViewController,UIScrollViewDelegate,UINavigationControllerDelega
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let stors = StoresCollectioView(frame:.zero, collectionViewLayout: layout)
+        stors.delegate = self
+        stors.tag = 0
         return stors
     }()
     let pageController: UIPageControl = {
@@ -45,45 +47,50 @@ class HomeVC: UIViewController,UIScrollViewDelegate,UINavigationControllerDelega
     }()
     let moreStores : UIButton = {
         let btn = UIButton(type:.system)
-        btn.setTitle("more", for: .normal)
+        btn.setTitle("المزيد", for: .normal)
         return btn
     }()
     // MARKE:- Speachil offers PROP
     let specialOffersLab : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Questv1 Bold", size: 16.0)
-        label.text = NSLocalizedString("specialOffers",comment:"")
+//        label.text = NSLocalizedString("specialOffers",comment:"")
+        label.text = "عروض خاصة"
         label.textColor = UIColor(named: "labelTextColor")
         return label
     }()
     let specialOffersBtn : UIButton = {
         let btn = UIButton(type:.system)
-        btn.setTitle(NSLocalizedString("specialOffers",comment:""), for: .normal)
+        btn.setTitle("المزيد", for: .normal)
         return btn
     }()
     lazy var specialOffersCollectiovView: SpecialOffersCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let stors = SpecialOffersCollectionView(frame:.zero, collectionViewLayout: layout)
+        stors.tag = 1
+        stors.delegate = self
         return stors
     }()
 //---- MARKE : BY ITEMS-
     let byItemsLab : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Questv1 Bold", size: 16.0)
-        label.text = NSLocalizedString("shoppingByItems",comment:"")
+        label.text = "تسوق حسب الصنف"
         label.textColor = UIColor(named: "labelTextColor")
         return label
     }()
     let byItemsBtn : UIButton = {
         let btn = UIButton(type:.system)
-        btn.setTitle(NSLocalizedString("shoppingByItems",comment:""), for: .normal)
+        btn.setTitle("المزيد", for: .normal)
         return btn
     }()
     lazy var byItemsCollectiovView: ByItemsCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let stors = ByItemsCollectionView(frame:.zero, collectionViewLayout: layout)
+        stors.tag = 2
+        stors.delegate = self
         return stors
     }()
 //--- MARKE: BY CATEGORIES
@@ -93,9 +100,11 @@ class HomeVC: UIViewController,UIScrollViewDelegate,UINavigationControllerDelega
         let stors = CategoriesCollectionView(frame:.zero, collectionViewLayout: layout)
         return stors
     }()
-    let itemsExpanbleCollectionView: ItemsExpandbaleCollectionView = {
+    lazy var itemsExpanbleCollectionView: ItemsExpandbaleCollectionView = {
         let layout = UICollectionViewFlowLayout()
         let stors = ItemsExpandbaleCollectionView(frame:.zero, collectionViewLayout: layout)
+        stors.tag = 3
+        stors.delegate = self
         return stors
     }()
     lazy var arrayViews: [UIView] = {
@@ -112,8 +121,12 @@ class HomeVC: UIViewController,UIScrollViewDelegate,UINavigationControllerDelega
         
         return [blueView,greenView,cyanView,cyanView,blackView]
     }()
-    let customAnimationPresntor = CustomAnimationPresentor()
-    let customAnimationDismisser = CustomAnimationDismisser()
+//    let customAnimationPresntor = CustomAnimationPresentor()
+//    let customAnimationDismisser = CustomAnimationDismisser()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.delegate = self
@@ -123,9 +136,17 @@ class HomeVC: UIViewController,UIScrollViewDelegate,UINavigationControllerDelega
         view.addSubview(mainScrollView)
         mainScrollView.anchor(top: view.layoutMarginsGuide.topAnchor, left: view.leadingAnchor, right: view.trailingAnchor, bottom: view.bottomAnchor, paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, width: 0, height: 0)
         mainScrollView.contentSize = CGSize(width: self.view.frame.width, height: 1560)
-        
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "magnifying-glass").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleProfile))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Group 63").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleSearche))
+        print(Locale.current.languageCode)
+        if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Group 63").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleProfile))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "magnifying-glass").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleSearche))
+
+            // The app is in right-to-left mode
+        }else {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Group 63").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleProfile))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "magnifying-glass").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleSearche))
+
+        }
 //--- background ImageView
         mainScrollView.addSubview(imageView)
         mainScrollView.backgroundColor = .clear
@@ -160,7 +181,7 @@ class HomeVC: UIViewController,UIScrollViewDelegate,UINavigationControllerDelega
         moreStores.anchor(top: pageController.bottomAnchor, left: nil, right: view.trailingAnchor, bottom: nil, paddingTop: 8, paddingLeft: 0, paddingRight: 8, paddingBottom: 0, width: 100, height: 40)
 //--- Stors CollectionView
         mainScrollView.addSubview(storesCollectionView)
-        storesCollectionView.setupDelgate()
+//        storesCollectionView.setupDelgate()
         storesCollectionView.anchor(top: storesLabel.bottomAnchor, left: view.leadingAnchor, right: view.trailingAnchor, bottom: nil, paddingTop: 10, paddingLeft: 8, paddingRight: 8, paddingBottom: 0, width: 0, height: 88)
 //--- MARKE-: Speachil offers CONFIG
         mainScrollView.addSubview(specialOffersLab)
@@ -168,6 +189,7 @@ class HomeVC: UIViewController,UIScrollViewDelegate,UINavigationControllerDelega
         mainScrollView.addSubview(specialOffersBtn)
         specialOffersBtn.anchor(top: storesCollectionView.bottomAnchor, left: nil, right: view.trailingAnchor, bottom: nil, paddingTop: 8, paddingLeft: 0, paddingRight: 8, paddingBottom: 0, width: 100, height: 40)
         mainScrollView.addSubview(specialOffersCollectiovView)
+        specialOffersCollectiovView.setupDelgates()
         specialOffersCollectiovView.anchor(top: specialOffersLab.bottomAnchor, left: view.leadingAnchor, right: view.trailingAnchor, bottom: nil, paddingTop: 10, paddingLeft: 8, paddingRight: 8, paddingBottom: 0, width: 0, height: 80)
         
         setupShoppingByItems()
@@ -177,7 +199,7 @@ class HomeVC: UIViewController,UIScrollViewDelegate,UINavigationControllerDelega
     func setupShoppingByItems() {
         mainScrollView.addSubview(byItemsLab)
         byItemsCollectiovView.setupDelgate()
-        byItemsLab.anchor(top: specialOffersCollectiovView.bottomAnchor, left: view.leadingAnchor, right: nil, bottom: nil, paddingTop: 8, paddingLeft: 8, paddingRight: 0, paddingBottom: 0, width: 100, height: 40)
+        byItemsLab.anchor(top: specialOffersCollectiovView.bottomAnchor, left: view.leadingAnchor, right: nil, bottom: nil, paddingTop: 8, paddingLeft: 8, paddingRight: 0, paddingBottom: 0, width: 140, height: 40)
         mainScrollView.addSubview(byItemsBtn)
         byItemsBtn.anchor(top: specialOffersCollectiovView.bottomAnchor, left: nil, right: view.trailingAnchor, bottom: nil, paddingTop: 8, paddingLeft: 0, paddingRight: 8, paddingBottom: 0, width: 100, height: 40)
         mainScrollView.addSubview(byItemsCollectiovView)
@@ -199,7 +221,7 @@ class HomeVC: UIViewController,UIScrollViewDelegate,UINavigationControllerDelega
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let page = scrollView.contentOffset.x / scrollView.frame.width
-        print(scrollView.contentOffset.x)
+//        print(scrollView.contentOffset.x)
         pageController.currentPage = Int(page)
     }
     @objc func handleSearche() {
@@ -217,13 +239,39 @@ class HomeVC: UIViewController,UIScrollViewDelegate,UINavigationControllerDelega
 //    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 //        return customAnimationDismisser
 //    }
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return customAnimationPresntor
-    }
-//    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-//        <#code#>
+//    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        return customAnimationPresntor
 //    }
 }
 class PresentationController: UIPresentationController {
     override var shouldRemovePresentersView: Bool { return false }
+}
+extension HomeVC : UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView.tag == 0 {
+            print("STORES")
+        }
+        if collectionView.tag == 1 {
+            print("SPECIL OFFERS")
+            if (indexPath.row == 0 ){
+                let alSelal = AlSelal()
+                self.navigationController?.pushViewController(alSelal, animated: true)
+                print(indexPath.row)
+            }else if indexPath.row == 1  {
+                let baqat = BaqatAltwfeer()
+                self.navigationController?.pushViewController(baqat, animated: true)
+            }else if indexPath.row == 2 {
+                let pd = ProductDetails()
+                self.navigationController?.pushViewController(pd, animated: true)
+            }
+            
+        } else if collectionView.tag == 2  {
+            print("BY ITEMS")
+        }
+//        let dDate = DeliveryTimes()
+//        self.navigationController?.pushViewController(dDate, animated: true)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 80, height: 80)
+    }
 }

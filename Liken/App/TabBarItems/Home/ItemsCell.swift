@@ -53,8 +53,9 @@ class ItemsCell: UICollectionViewCell{
 //--- incrmentor
     let plusButton : UIButton = {
         let btn = UIButton(type: .system)
-//        btn.setBackgroundImage(#imageLiteral(resourceName: "Group 63"), for: .normal)
-        btn.backgroundColor =  .yellow
+        btn.setBackgroundImage(#imageLiteral(resourceName: "Group 3").withRenderingMode(.alwaysTemplate), for: .normal)
+        btn.tintColor = UIColor.rgb(red: 112, green: 112, blue: 112 )
+        
         return btn
     }()
     let counterLabel : UILabel = {
@@ -67,8 +68,8 @@ class ItemsCell: UICollectionViewCell{
     }()
     let minusButton : UIButton = {
         let btn = UIButton(type: .system)
-//        btn.setBackgroundImage(#imageLiteral(resourceName: "Group 63"), for: .normal)
-        btn.backgroundColor =  .red
+        btn.setBackgroundImage(#imageLiteral(resourceName: "054-minus").withRenderingMode(.alwaysTemplate), for: .normal)
+        btn.tintColor = UIColor.rgb(red: 112, green: 112, blue: 112 )
         return btn
     }()
     var counter = 1
@@ -102,11 +103,11 @@ class ItemsCell: UICollectionViewCell{
     func setupStackView() {
         counterLabel.text = "\(counter)"
         self.addSubview(plusButton)
-        plusButton.anchor(top: itemsTitle.bottomAnchor, left: nil, right: self.trailingAnchor, bottom: nil, paddingTop: 6, paddingLeft: 0, paddingRight: 4, paddingBottom: 4, width: 34, height: 34)
+        plusButton.anchor(top: itemsTitle.bottomAnchor, left: nil, right: self.trailingAnchor, bottom: nil, paddingTop: 6, paddingLeft: 0, paddingRight: 4, paddingBottom: 4, width: 20, height: 20)
         self.addSubview(counterLabel)
-        counterLabel.anchor(top: itemsTitle.bottomAnchor, left: nil, right: plusButton.leadingAnchor, bottom: nil, paddingTop: 6, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, width: 20, height: 34)
+        counterLabel.anchor(top: itemsTitle.bottomAnchor, left: nil, right: plusButton.leadingAnchor, bottom: nil, paddingTop: 6, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, width: 20, height: 20)
         self.addSubview(minusButton)
-        minusButton.anchor(top: itemsTitle.bottomAnchor, left: nil, right: counterLabel.leadingAnchor, bottom: nil, paddingTop: 6, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, width: 34, height: 34)
+        minusButton.anchor(top: itemsTitle.bottomAnchor, left: nil, right: counterLabel.leadingAnchor, bottom: nil, paddingTop: 6, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, width: 20, height: 20)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

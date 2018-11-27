@@ -19,7 +19,6 @@ class MyCartViewController:TempletViewController {
     }()
     let table: ItemsTableView = {
         let table = ItemsTableView()
-        
         return table
     }()
     let pricView: PriceView = {
@@ -36,14 +35,18 @@ class MyCartViewController:TempletViewController {
         setupTableView()
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+    }
     func setupTableView() {
         view.addSubview(table)
         table.anchor(top: seprator.bottomAnchor, left: view.leadingAnchor, right: view.trailingAnchor, bottom: pricView.topAnchor, paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, width: 0, height: 0)
     }
     func setupViews() {
-        let attrubitedString = NSMutableAttributedString(string: NSLocalizedString("youHave", comment: ""), attributes: [NSAttributedStringKey.font : UIFont(name: "Tajawal-Medium", size: 12),NSAttributedStringKey.foregroundColor:UIColor.rgb(red: 78, green: 78, blue: 78)])
+        let attrubitedString = NSMutableAttributedString(string: "لديك", attributes: [NSAttributedStringKey.font : UIFont(name: "Tajawal-Medium", size: 12),NSAttributedStringKey.foregroundColor:UIColor.rgb(red: 78, green: 78, blue: 78)])
         attrubitedString.append(NSMutableAttributedString(string: " \(5) ", attributes: [NSAttributedStringKey.font :UIFont(name: "Tajawal-Medium", size: 15),NSAttributedStringKey.foregroundColor:UIColor.rgb(red: 78, green: 78, blue: 78) ]))
-        attrubitedString.append(NSMutableAttributedString(string: NSLocalizedString("itemsInYourCart", comment: ""), attributes: [NSAttributedStringKey.font :UIFont(name: "Tajawal-Medium", size: 12),NSAttributedStringKey.foregroundColor:UIColor.rgb(red: 78, green: 78, blue: 78) ]))
+        attrubitedString.append(NSMutableAttributedString(string: "منتجات في سلتك", attributes: [NSAttributedStringKey.font :UIFont(name: "Tajawal-Medium", size: 12),NSAttributedStringKey.foregroundColor:UIColor.rgb(red: 78, green: 78, blue: 78) ]))
         
         itemsCount.attributedText = attrubitedString
         view.addSubview(itemsCount)

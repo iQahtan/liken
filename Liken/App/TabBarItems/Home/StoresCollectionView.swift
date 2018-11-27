@@ -14,6 +14,9 @@ class StoresCollectioView: UICollectionView,UICollectionViewDelegate,UICollectio
         super.init(frame: frame, collectionViewLayout: layout)
         self.register(StoresCell.self, forCellWithReuseIdentifier: cellId)
         
+        self.backgroundColor = .clear
+        self.isPagingEnabled = true
+        self.dataSource = self
     }
     func setupDelgate() {
         self.backgroundColor = .clear
@@ -41,5 +44,17 @@ class StoresCollectioView: UICollectionView,UICollectionViewDelegate,UICollectio
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 80, height: 80)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    func setupViews() {
+        let dtims =  DeliveryTimes()
+        DispatchQueue.main.async {
+            let dtims =  DeliveryTimes()
+            let nav = UINavigationController(rootViewController: dtims)
+            nav.setNavigationBarHidden(false, animated: true)
+//            self.present(nav, animated: true, completion: nil)
+        }
     }
 }

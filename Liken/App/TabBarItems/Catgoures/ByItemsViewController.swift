@@ -73,6 +73,10 @@ class ByItemsViewController: TembletTabBarViewController {
 //        byItmesCollectionView.isPagingEnabled = true
         byItmesCollectionView.delegate = self
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+    }
     var selectorLeadingAnchore : NSLayoutConstraint?
     func setupFilterView() {
         view.addSubview(selector)

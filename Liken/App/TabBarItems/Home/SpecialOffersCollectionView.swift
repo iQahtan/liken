@@ -16,11 +16,13 @@ class SpecialOffersCollectionView: UICollectionView,UICollectionViewDelegate , U
         
         self.backgroundColor = .clear
 //        self.isPagingEnabled = true
-        self.delegate = self
+//        self.delegate = self
         self.dataSource = self
         self.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
     }
-    
+    func setupDelgates () {
+        self.dataSource = self
+    }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
